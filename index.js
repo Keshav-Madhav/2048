@@ -2,8 +2,13 @@ var board;
 var score=0;
 var rows=4;
 var columns=4;
+let previousBoard;
+let previousScore;
+let highScore = parseInt(localStorage.getItem("highScore")) || 0;
+
 
 document.querySelector(".reset").addEventListener("click", resetGame);
+document.querySelector(".undo").addEventListener("click", undo);
 
 
 window.onload =function(){
@@ -36,6 +41,9 @@ function setGame(){
             document.getElementById("board").append(tile);
         }
     }
+    
+    document.getElementById("high-score").textContent = highScore;
+
 
     setTwo();
     setTwo();
@@ -83,6 +91,12 @@ function resetGame() {
         [0, 0, 0, 0],
         [0, 0, 0, 0]
     ];
+
+    if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("highScore", highScore);
+    }
+    
     score = 0;
     
     // Update the tiles on the board
@@ -98,7 +112,30 @@ function resetGame() {
     setTwo();
     
     document.getElementById("score").innerText = score;
+    document.getElementById("high-score").textContent = highScore;
+
 }
+
+function undo() {
+    if (previousBoard && previousScore) {
+        // Revert the game state to its previous values
+        board = JSON.parse(JSON.stringify(previousBoard));
+        score = previousScore;
+        
+        // Update the tiles on the board
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < columns; c++) {
+                let tile = document.getElementById(r.toString() + '-' + c.toString());
+                let num = board[r][c];
+                updateTile(tile, num);
+            }
+        }
+        
+        // Update the score display
+        document.getElementById("score").innerText = score;
+    }
+}
+
 
 
 function setTwo(){
@@ -158,11 +195,20 @@ document.addEventListener("keyup",(e)=>{
         setTwo();
         gameOver();
     }
+    else if (e.code == "KeyU"){
+        undo();
+    }
+    else if (e.code == "Space" || e.code == "KeyR"){
+        resetGame();
+    }
+
 
     document.getElementById("score").innerText=score;
 })
 
 function slideLeft(){
+    previousBoard = JSON.parse(JSON.stringify(board));
+    previousScore = score;
     for(let r=0;r<rows;r++){
         let row=board[r];
         row=slide(row);
@@ -177,6 +223,8 @@ function slideLeft(){
 }
 
 function slideRight(){
+    previousBoard = JSON.parse(JSON.stringify(board));
+    previousScore = score;
     for(let r=0;r<rows;r++){
         let row=board[r];
         row.reverse();
@@ -193,6 +241,8 @@ function slideRight(){
 }
 
 function slideUp(){
+    previousBoard = JSON.parse(JSON.stringify(board));
+    previousScore = score;
     for(let c=0;c<columns;c++){
         let row=[board[0][c],board[1][c],board[2][c],board[3][c]];
         row= slide(row);
@@ -206,6 +256,8 @@ function slideUp(){
 }
 
 function slideDown(){
+    previousBoard = JSON.parse(JSON.stringify(board));
+    previousScore = score;
     for(let c=0;c<columns;c++){
         let row=[board[0][c],board[1][c],board[2][c],board[3][c]];
         row.reverse();

@@ -1,10 +1,87 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    overflow: hidden;
+}
+
+.container{
+    display: grid;
+    position: relative;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    width: 40vmin;
+    column-gap: 10px;
+    top: -7px;
+}
+
+.stats{
+    display: flex;
+    width: 62vmin;
+    position: relative;
+    margin: auto;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+}
+
+.reset , .undo{
+    font-size: 20px;
+    color: white;
+    background-color: #8f7a66;
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: fit-content;
+    margin: auto;
+    white-space: nowrap;
+}
+.undo{
+    padding:9px 10px 4px 10px;
+}
+
+.reset:hover ,.undo:hover{
+    background-color: #a68d79;
+}
+
+.undo > img{
+    height: 25px;
+    width: 25px;
+}
+
+.scoreText{
+    background-color: #bbada0;
+    color: #ffffff99;
+    font-size: 20px;
+    border-radius: 5px;
+    line-height: 4vmin;
+    white-space: nowrap;
+    min-height: 50px;
+}
+
+.scoreText > span{
+    font-size: 30px;
+    color: white;
+}
+
+.Name{
+    line-height: 15vmin;
+    width: 15vmin;
+    min-width: 90px;
+    min-height: 90px;
+    background-color: #ecc230;
+    color: white;
+    border-radius: 10px;
 }
 
 hr{
-    width: 500px;
+    width: 0;
+    height: 120px;
+}
+
+.title{
+    font-size: 25px;
+    color: #776e65;
 }
 
 .gameover{
@@ -19,22 +96,6 @@ hr{
     color: #776e65;
     font-size: 6vmin;
 }
-
-.reset {
-    margin-top: 10px;
-    font-size: 24px;
-    color: white;
-    background-color: #8f7a66;
-    border: none;
-    border-radius: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.reset:hover {
-    background-color: #a68d79;
-}
-
 
 #board{
     width: 60vmin;

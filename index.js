@@ -6,9 +6,50 @@ let previousBoard;
 let previousScore;
 let highScore = parseInt(localStorage.getItem("highScore")) || 0;
 
+let touchStartX;
+let touchStartY;
+let touchEndX;
+let touchEndY;
 
 document.querySelector(".reset").addEventListener("click", resetGame);
 document.querySelector(".undo").addEventListener("click", undo);
+
+document.addEventListener('touchstart', function(e){
+    touchStartX= e.touches[0].clientX;
+    touchStartY= e.touches[0].clientY;
+}, false);
+
+document.addEventListener('touchend', function(e){
+    touchEndX= e.changedTouches[0].clientX;
+    touchEndY= e.changedTouches[0].clientY;
+    handleSwipe();
+},false)
+
+function handleSwipe(){
+    let deltaX= touchEndX-touchStartX;
+    let deltaY= touchEndY-touchStartY;
+    let absoluteDeltaX=Math.abs(deltaX);
+    let absoluteDeltaY=Math.abs(deltaY);
+
+    if(absoluteDeltaX>absoluteDeltaY){
+        if(deltaX>0){
+            slideRight();
+        }
+        else{
+            slideLeft();
+        }
+    }
+    else{
+        if(deltaY>0){
+            slideDown();
+        }
+        else{
+            slideUp();
+        }
+    }
+}
+
+
 
 
 window.onload =function(){
@@ -22,15 +63,6 @@ function setGame(){
         [0,0,0,0],
         [0,0,0,0]
     ]
-
-    // board=[
-    //     [2,2,2,2],
-    //     [2,2,2,2],
-    //     [4,4,8,8],
-    //     [4,4,8,8]
-    // ]
-
-
 
     for(let r=0;r<rows;r++){
         for(let c=0;c<columns;c++){

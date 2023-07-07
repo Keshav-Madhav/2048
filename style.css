@@ -75,8 +75,9 @@ body{
 }
 
 hr{
-    width: 0;
-    height: 120px;
+    height: 110px;
+    background: #cdc1b5;
+    border: 1px solid #cdc1b5;
 }
 
 .title{

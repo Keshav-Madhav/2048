@@ -183,3 +183,15 @@ hr{
     background-color: #3c3a32;
     color: white;
 }
+
+@media (max-width: 600px) {
+    #board {
+        width: 90vmin;
+        height: 90vmin;
+        border: calc(90vmin/100*1.5) solid #bbada7;
+    }
+    .tile{
+        border: calc(90vmin/100*1.5) solid #bbada0;
+        font-size: 8vmin;
+    }
+}

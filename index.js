@@ -34,17 +34,25 @@ function handleSwipe(){
     if(absoluteDeltaX>absoluteDeltaY){
         if(deltaX>0){
             slideRight();
+            setTwo();
+            gameOver();
         }
         else{
             slideLeft();
+            setTwo();
+            gameOver();
         }
     }
     else{
         if(deltaY>0){
             slideDown();
+            setTwo();
+            gameOver();
         }
         else{
             slideUp();
+            setTwo();
+            gameOver();
         }
     }
 }
